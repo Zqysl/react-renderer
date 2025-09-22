@@ -1,0 +1,1 @@
+import "@tailwindcss/browser/dist/index.global.js";
