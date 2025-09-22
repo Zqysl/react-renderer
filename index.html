@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+  <script type="importmap">
+    {
+        "imports": {
+            "react/": "https://esm.sh/react@18.3.1/",
+            "react": "https://esm.sh/react@18.3.1",
+            "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+            "recharts": "./dist/lib.js",
+            "@/components/ui/card": "./dist/lib.js" 
+        }
+    }
+    </script>
+
+  <title>Vite + React + TS</title>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="module" src="/src/main.tsx"></script>
+
+
+  <script type="module">
+    import { createRoot } from 'react-dom/client'
+    const root = createRoot(document.getElementById('root'))
+
+
+    function transform(code) {
+      return Babel.transform(code, {
+        filename: '_.jsx', presets: [['react', { runtime: 'automatic', importSource: 'react' }]]
+      }).code;
+    }
+
+    async function renderReact(code) {
+      const parsedCode = transform(code);
+      console.log('parsedCode:\n', parsedCode);
+
+      const blob = new Blob([parsedCode], { type: "text/javascript" });
+      const url = URL.createObjectURL(blob);
+      const module = await import(/* @vite-ignore */ url);
+
+      console.log(module)
+
+      root.render(module.default())
+    }
+
+
+    window.rendering = renderReact
+
+
+  </script>
+</body>
+
+</html>
