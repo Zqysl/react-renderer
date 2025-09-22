@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export function Card(props: React.PropsWithChildren<{ className?: string }>) {
-  return <div className={`rounded-xl border p-4 ${props.className ?? ''}`}>{props.children}</div>;
+  return <div className={`border-black/50 rounded-xl border p-4 ${props.className ?? ''}`}>{props.children}</div>;
 }
 
 export function CardHeader(props: React.PropsWithChildren<{ className?: string }>) {
