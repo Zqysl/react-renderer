@@ -10,7 +10,7 @@ export default defineConfig({
     build: {
         lib: {
             entry: path.resolve(__dirname, 'src/components'),
-            fileName: (format, entryName) => `lib.js`,
+            fileName: () => `lib.js`,
             formats: ['es']
         },
         rollupOptions: {
